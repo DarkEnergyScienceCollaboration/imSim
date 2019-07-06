@@ -14,7 +14,7 @@ import desc.imsim
 class TreeRingsTestCase(unittest.TestCase):
     """TestCase class for the tree rings code."""
     def setUp(self):
-        self.sensors = ['R:2,2 S:1,1', 'R:3,4 S:2,2']
+        self.sensors = ['R22_S11', 'R34_S22']
         self.instcat_file = os.path.join(lsstUtils.getPackageDir('imsim'),
                                'tests', 'tiny_instcat.txt')
         self.rtest = 5280.0 # Just a value to test the radial function at

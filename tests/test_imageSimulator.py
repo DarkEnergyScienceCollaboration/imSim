@@ -45,8 +45,8 @@ class ImageSimulatorTestCase(unittest.TestCase):
     def test_checkpoint_file_name(self):
         """Unit test for checkpoint filename generation."""
         file_id = 'v123456-i'
-        det_name = 'R:2,2 S:1,1'
-        fn_expected = 'checkpoint-{}-{}.ckpt'.format(file_id, 'R22_S11')
+        det_name = 'R22_S11'
+        fn_expected = 'checkpoint-{}-{}.ckpt'.format(file_id, det_name)
 
         fn = desc.imsim.ImageSimulator.checkpoint_file(file_id, det_name)
         self.assertEqual(fn, fn_expected)

@@ -20,7 +20,7 @@ class InstCatTrimmerTestCase(unittest.TestCase):
         """Unit test for InstCatTrimmer class."""
         instcat = os.path.join(os.environ['IMSIM_DIR'], 'tests',
                                'tiny_instcat.txt')
-        sensor = 'R:2,2 S:1,1'
+        sensor = 'R22_S11'
 
         # Check the application of minsource.
         objs = desc.imsim.InstCatTrimmer(instcat, [sensor], minsource=10)
@@ -44,7 +44,7 @@ class InstCatTrimmerTestCase(unittest.TestCase):
         """
         instcat = os.path.join(os.environ['IMSIM_DIR'], 'tests',
                                'bad_instcat.txt')
-        sensor = 'R:2,2 S:1,1'
+        sensor = 'R22_S11'
         objs = desc.imsim.InstCatTrimmer(instcat, [sensor], minsource=10)
         self.assertEqual(len(objs[sensor]), 26)
 

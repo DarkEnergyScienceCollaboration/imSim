@@ -37,8 +37,10 @@ class RawFileOutputTestCase(unittest.TestCase):
                                      bandpassName='r')
         obs_md.OpsimMetaData = {'obshistID': 161899,
                                 'airmass': desc.imsim.airmass(43.6990272)}
-        detname = "R:2,2 S:1,1"
-        chipid = 'R{}_S{}'.format(detname[2:5:2], detname[8:11:2])
+#        detname = "R:2,2 S:1,1"
+#        chipid = 'R{}_S{}'.format(detname[2:5:2], detname[8:11:2])
+        detname = 'R22_S11'
+        chipid = detname
         detector = sims_gsi.make_galsim_detector(camera_wrapper, detname,
                                                  phot_params, obs_md)
         gs_interpreter = sims_gsi.GalSimInterpreter(detectors=[detector])

@@ -52,7 +52,7 @@ class SkyModelTestCase(unittest.TestCase):
         except OSError:
             pass
 
-    def detector(self, chip_name="R:2,2 S:1,1"):
+    def detector(self, chip_name="R22_S11"):
         """
         Factory to create a GalSimDetector instance.
         """

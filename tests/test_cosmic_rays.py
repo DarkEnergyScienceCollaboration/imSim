@@ -48,7 +48,7 @@ class CosmicRaysTestCase(unittest.TestCase):
         nxy = 100
         num_crs = 10
         visit = 141134
-        sensor = "R:2,2 S:1,1"
+        sensor = "R22_S11"
         seed = CosmicRays.generate_seed(visit, sensor)
         self.assertIsInstance(seed, int)
 
@@ -68,7 +68,7 @@ class CosmicRaysTestCase(unittest.TestCase):
 
         # Check that CRs differ for different sensors.
         crs3 = CosmicRays.read_catalog(self.test_catalog)
-        crs3.set_seed(CosmicRays.generate_seed(visit, "R:2,4 S:1,2"))
+        crs3.set_seed(CosmicRays.generate_seed(visit, "R24_S12"))
         imarr3 = np.zeros((nxy, nxy))
         imarr3 = crs2.paint(imarr3, num_crs=num_crs)
         np.testing.assert_raises(AssertionError, np.testing.assert_array_equal,
