@@ -255,13 +255,18 @@ class ImageSource(object):
         """
         Make the amplifier images for all the amps in the sensor.
         """
+        config = self.config['electronics_readout']
         self.amp_images = OrderedDict()
         amp_names = self.camera_info.get_amp_names(self.sensor_id)
         for amp_name in amp_names:
             self._make_amp_image(amp_name)
-        self._apply_crosstalk()
-        if self.config['electronics_readout']\
-           ['disable_readnoise_bias_darkcurrent']:
+        try:
+            disable_crosstalk = config['disable_crosstalk']
+        except KeyError:
+            disable_crosstalk = False
+        if not disable_crosstalk:
+            self._apply_crosstalk()
+        if config['disable_readnoise_bias_darkcurrent']:
             return
         for amp_name in amp_names:
             self._add_read_noise_and_bias(amp_name)
