@@ -58,7 +58,7 @@ parser.add_argument('--ckpt_archive_dir', type=str, default=None,
 args = parser.parse_args()
 
 # Read in the config
-desc.imsim.read_config(args.config_file)
+config = desc.imsim.read_config(args.config_file)
 
 # Prepend any additional paths to IMSIM_IMAGE_PATH.
 if args.image_path is not None:
@@ -70,7 +70,12 @@ commands = desc.imsim.metadata_from_file(args.instcat)
 obs_md = desc.imsim.phosim_obs_metadata(commands)
 
 if args.psf_file is None or not os.path.isfile(args.psf_file):
-    psf = desc.imsim.make_psf(args.psf, obs_md, log_level=args.log_level)
+    try:
+        nproc = config['psf']['nproc']
+    except KeyError:
+        nproc = None
+    psf = desc.imsim.make_psf(args.psf, obs_md, log_level=args.log_level,
+                              nproc=nproc)
     if args.psf_file is not None:
         desc.imsim.save_psf(psf, args.psf_file)
 else:
