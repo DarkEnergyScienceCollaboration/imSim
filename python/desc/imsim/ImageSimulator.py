@@ -144,6 +144,8 @@ class ImageSimulator:
         """
         bp_dict = BandpassDict.loadTotalBandpassesFromFiles(bandpassNames=self.obs_md.bandpass)
         disable_sky_model = self.config['sky_model']['disable_sky_model']
+        bf_strength = self.config['ccd']['bf_strength']
+        ckpt_threshold = self.config['checkpointing']['fits_image_thresh']
         noise_and_background \
             = make_sky_model(self.obs_md, self.phot_params, seed=seed,
                              apply_sensor_model=self.apply_sensor_model,
@@ -163,7 +165,8 @@ class ImageSimulator:
                                       noise_and_background,
                                       epoch=2000.0, seed=seed,
                                       apply_sensor_model=self.apply_sensor_model,
-                                      bf_strength=self.config['ccd']['bf_strength'])
+                                      bf_strength=bf_strength,
+                                      fits_image_ckpt_threshold=ckpt_threshold)
 
             self.gs_interpreters[det_name].sky_bg_per_pixel \
                 = noise_and_background.sky_counts(det_name)

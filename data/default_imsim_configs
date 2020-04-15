@@ -44,6 +44,7 @@ catalog = default
 nobj = 500
 cleanup = True
 do_summary = False
+fits_image_thresh = 1e4
 
 [wl_params]
 gamma2_sign = -1
