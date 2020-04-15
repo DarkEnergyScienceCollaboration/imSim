@@ -360,6 +360,7 @@ class GsObjectList:
         self.sed_dirs = sed_dirs(instcat_file)
         config = get_config()
         self.gamma2_sign = config['wl_params']['gamma2_sign']
+        self.nxy = config['objects']['nxy']
 
     def _find_objects_on_chip(self, object_lines, chip_name):
         num_lines = len(object_lines)
@@ -512,12 +513,14 @@ class GsObjectList:
                                           self.phot_params,
                                           npoints,
                                           fits_file,
-                                          pixel_scale,
+                                          pixel_scale*self.nxy,
                                           rotation_angle,
                                           gamma1=gamma1,
                                           gamma2=gamma2,
                                           kappa=kappa,
-                                          uniqueId=unique_id)
+                                          uniqueId=unique_id,
+                                          nx=self.nxy,
+                                          ny=self.nxy)
         return gs_object
 
 

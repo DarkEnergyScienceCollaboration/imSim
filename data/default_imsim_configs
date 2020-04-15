@@ -50,6 +50,7 @@ gamma2_sign = -1
 
 [objects]
 sort_magnorm = True
+nxy = 1
 
 [psf]
 # FWHM in arcsec of the Gaussian to convolve with the baseline
