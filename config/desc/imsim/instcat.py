@@ -266,7 +266,7 @@ class InstCatalog(object):
 
         # Make the object according to the values in the objinfo
 
-        # Note: params here starts at 12, so all indices are 12 less than in Jim's code.
+        # Note: params here starts at 12, so all indices are 12 less than in imSim code.
         if params[0].lower() == 'point':
             obj = galsim.DeltaFunction(gsparams=gsparams)
 
@@ -274,11 +274,11 @@ class InstCatalog(object):
             a = float(params[1])
             b = float(params[2])
             if b > a:
-                # Invalid, but Jim just let's it pass.
+                # Invalid, but imSim code just let it pass.
                 return None
             pa = float(params[3])
             if self.flip_g2:
-                # Jim's code first did PA = 360 - params[3]
+                # imSim code first did PA = 360 - params[3]
                 # Then beta = 90 + PA
                 beta = float(90 - pa) * galsim.degrees
             else:
@@ -294,7 +294,8 @@ class InstCatalog(object):
             n = round(n * 20.) / 20.
 
             hlr = (a * b)**0.5  # geometric mean of a and b is close to right.
-            # XXX: Note: Jim's code had hlr = a, which is wrong. (?)  Galaxies were too large.
+            # XXX: Note: The original imSim code had hlr = a, which is
+            # wrong. (?)  Galaxies were too large.
             #      Especially when they were more elliptical.  Oops.
             # TODO: Maybe not?  Check if this should be a.
             obj = galsim.Sersic(n=n, half_light_radius=hlr, gsparams=gsparams)
@@ -314,7 +315,7 @@ class InstCatalog(object):
                 beta = float(90 + pa) * galsim.degrees
             npoints = int(params[4])
             if npoints <= 0:
-                # Again, weird, but Jim just let's this pass without comment.
+                # Again, weird, but imSim let this pass without comment.
                 return None
             hlr = (a * b)**0.5
             obj = galsim.RandomKnots(npoints=npoints, half_light_radius=hlr, rng=rng,
@@ -552,7 +553,7 @@ class OpsimMetaBandpass(galsim.config.BandpassBuilder):
         """
         meta = galsim.config.GetInputObj('opsim_meta_dict', config, base, 'InstCatWorldPos')
 
-        # Note: Jim used the lsst.sims versions of these.  Here we just use the ones in the 
+        # Note: imSim used the lsst.sims versions of these.  Here we just use the ones in the 
         #       GalSim share directory.  Not sure whether those are current, but probably
         #       good enough for now.
         bp = meta.get('bandpass')
