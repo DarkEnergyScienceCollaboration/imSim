@@ -369,7 +369,7 @@ class LSST_SiliconBuilder(StampBuilder):
             if abs(offset.x) > 2 or abs(offset.y) > 2:
                 # Make a larger image that has the object near the center.
                 fft_image = galsim.Image(full_bounds, dtype=image.dtype, wcs=image.wcs)
-                fft_image[bounds] = image
+                fft_image[image.bounds] = image
                 fft_offset = image_pos - full_bounds.true_center
             else:
                 fft_image = image.copy()
@@ -387,7 +387,7 @@ class LSST_SiliconBuilder(StampBuilder):
                 fft_image.array[fft_image.array < 0] = 0.
                 fft_image.addNoise(galsim.PoissonNoise(rng=self.rng))
                 # In case we had to make a bigger image, just copy the part we need.
-                image += fft_image[bounds]
+                image += fft_image[image.bounds]
 
         if method == 'phot':  # Not else, since above might have failed.
             if 'photon_ops' in config:
