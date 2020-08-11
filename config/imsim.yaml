@@ -233,6 +233,7 @@ output:
                 - "$det_name"
                 - "@output.det_num"
         columns:
+            object_id: "object_id"
             ra: "$sky_pos.ra.deg"
             dec: "$sky_pos.dec.deg"
             x: "$image_pos.x"
