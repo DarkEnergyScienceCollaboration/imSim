@@ -44,6 +44,10 @@ eval_variables:
 # updated for each output file.
 # Also includes things that need some set up at the start of an exposure, like the atmospheric PSF.
 input:
+    camera_geometry:
+        # Geometry of the LSST Camera
+        file_name: ../data/LsstCam.pickle
+
     instance_catalog:
         # This enables InstCat types
         file_name: $cat_name
@@ -183,6 +187,7 @@ stamp:
 # This defines both the output files and some basic things about the overall exposure/fov.
 output:
     type: LSST_CCD
+    #type: LSST_RAW_FILE
     nproc: 1    # Change this to work on multiple CCDs at once.
     nfiles: 1   # Default is all 189 CCDs.  Set to 1 while testing.
 
