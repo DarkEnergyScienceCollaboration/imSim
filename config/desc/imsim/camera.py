@@ -22,7 +22,7 @@ class Amp:
         self.bias_level = None
 
     @staticmethod
-    def make_amp_from_lsst(lsst_amp, bias_level=20000.):
+    def make_amp_from_lsst(lsst_amp, bias_level=1000.):
         my_amp = Amp()
         my_amp.bounds = get_gs_bounds(lsst_amp.getBBox())
         my_amp.raw_flip_x = lsst_amp.getRawFlipX()

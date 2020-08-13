@@ -38,7 +38,7 @@ class LSST_RawFileBuilder(LSST_CCDBuilder):
             if amp.raw_flip_y:
                 amp_data = amp_data[::-1, :]
 
-            full_segment = galsim.Image(amp.raw_bounds)# + amp.bias_level
+            full_segment = galsim.Image(amp.raw_bounds) + amp.bias_level
             read_noise = galsim.CCDNoise(self.rng, gain=amp.gain,
                                          read_noise=amp.read_noise)
             full_segment.addNoise(read_noise)
