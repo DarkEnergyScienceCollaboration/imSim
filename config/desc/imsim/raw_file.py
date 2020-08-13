@@ -19,17 +19,20 @@ class LSST_RawFileBuilder(LSST_CCDBuilder):
             logger:     If given, a logger object to log progress.
         """
         super(LSST_RawFileBuilder, self).setup(config, base, file_num, logger)
-        self.camera = base['input']['camera_geometry']['current'][0]
+        self.camera = galsim.config.GetInputObj('camera_geometry', config, base,
+                                                'Camera')
         seed = galsim.config.SetupConfigRNG(base, logger=logger)
         self.rng = galsim.BaseDeviate(seed)
 
     def buildImages(self, config, base, file_num, image_num, obj_num, ignore,
                     logger):
+        det_name = base['det_name'].replace('-', '_')
+        ccd = self.camera[det_name]
+        base['image']['xsize'] = ccd.bounds.xmax + 1
+        base['image']['ysize'] = ccd.bounds.ymax + 1
         eimage = LSST_CCDBuilder.buildImages(self, config, base, file_num,
                                              image_num, obj_num, ignore,
                                              logger)[0]
-        det_name = base['det_name'].replace('-', '_')
-        ccd = self.camera[det_name]
         amp_images = []
         for amp in ccd.values():
             amp_data = copy.deepcopy(eimage[amp.bounds].array)*amp.gain
