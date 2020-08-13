@@ -49,13 +49,13 @@ class CCD(dict):
         return my_ccd
 
 
-
 class Camera(dict):
     _req_params = {'file_name' : str}
 
     def __init__(self, file_name, logger=None):
         super().__init__()
-        self.update(self.read_pickle(file_name))
+        if file_name is not None:
+            self.update(self.read_pickle(file_name))
 
     def to_pickle(self, pickle_file):
         with open(pickle_file, 'wb') as fd:
@@ -68,9 +68,10 @@ class Camera(dict):
 
 
 def make_camera_from_lsst(lsst_camera):
-    my_camera = Camera()
+    my_camera = Camera(None)
     for lsst_ccd in lsst_camera:
         my_camera[lsst_ccd.getName()] = CCD.make_ccd_from_lsst(lsst_ccd)
     return my_camera
+
 
 RegisterInputType('camera_geometry', InputLoader(Camera, takes_logger=True))
